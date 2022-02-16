@@ -9,20 +9,26 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 
+
 /**
  * autor: Abel, Edgar, Raul 
- * Fecha modificacion: 15/02/2022
+ * Fecha modificacion: 16/02/2022
  */
 
 @SuppressWarnings("serial")
-public class Ventana extends JFrame {
+public class Ventana extends JFrame implements KeyListener {
 
 	private JPanel contentPane;
 	private JTextField tfCantidad;
 	private JTextField areaResultado;
+	private JButton btnConvertir;
+	private JButton btnCambiar;
+	private JButton btnBorrar;
 
 	/**
 	 * Launch the application.
@@ -64,7 +70,9 @@ public class Ventana extends JFrame {
 		contentPane.add(tfCantidad);
 		tfCantidad.setColumns(10);
 
-		JButton btnConvertir = new JButton("Euros a ptas");
+		btnConvertir = new JButton("Euros a ptas");
+		btnConvertir.addKeyListener(this);
+
 		btnConvertir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -78,11 +86,11 @@ public class Ventana extends JFrame {
 						resultado = cantidad / 166.386;
 
 					}
-			    
-			        String pattern = "#.###";
-			        DecimalFormat decimalFormat =  new DecimalFormat(pattern);
-			        String formattedDouble = decimalFormat.format(resultado);
-			        
+
+					String pattern = "#.###";
+					DecimalFormat decimalFormat = new DecimalFormat(pattern);
+					String formattedDouble = decimalFormat.format(resultado);
+
 					areaResultado.setText(formattedDouble);
 
 				} catch (Exception ex) {
@@ -94,8 +102,11 @@ public class Ventana extends JFrame {
 		btnConvertir.setBounds(54, 69, 151, 23);
 		contentPane.add(btnConvertir);
 
-		JButton btnCambiar = new JButton("Cambiar");
+		btnCambiar = new JButton("Cambiar");
+		btnCambiar.addKeyListener(this);
+
 		btnCambiar.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 				if (btnConvertir.getText().equals("Euros a ptas")) {
 					btnConvertir.setText("Ptas a Euros");
@@ -107,8 +118,10 @@ public class Ventana extends JFrame {
 
 		btnCambiar.setBounds(264, 69, 89, 23);
 		contentPane.add(btnCambiar);
-		
-		JButton btnBorrar = new JButton("Borrar");
+
+		btnBorrar = new JButton("Borrar");
+		btnBorrar.addKeyListener(this);
+
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tfCantidad.setText("");
@@ -117,10 +130,36 @@ public class Ventana extends JFrame {
 		});
 		btnBorrar.setBounds(363, 69, 89, 23);
 		contentPane.add(btnBorrar);
-		
+
 		areaResultado = new JTextField();
 		areaResultado.setColumns(10);
 		areaResultado.setBounds(340, 25, 112, 20);
 		contentPane.add(areaResultado);
+
 	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+
+		if (e.getKeyCode() == KeyEvent.VK_E || e.getKeyCode() == KeyEvent.VK_P) {
+			btnConvertir.doClick();
+		} else if (e.getKeyCode() == KeyEvent.VK_C) {
+			btnCambiar.doClick();
+		} else if (e.getKeyCode() == KeyEvent.VK_B) {
+			btnBorrar.doClick();
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
 }

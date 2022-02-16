@@ -4,7 +4,7 @@ import vista.Ventana;
 
 /**
  * autor: Abel, Edgar, Raul 
- * Fecha modificacion: 15/02/2022
+ * Fecha modificacion: 16/02/2022
  */
 public class App {
 	public static void main(String[] args) {
